@@ -129,7 +129,8 @@ class Pix2PixModel(BaseModel):
         real_A = util.tensor2im(self.real_A.data)
         fake_B = util.tensor2im(self.fake_B.data)
         real_B = util.tensor2im(self.real_B.data)
-        return OrderedDict([('real_A', real_A), ('fake_B', fake_B), ('real_B', real_B)])
+        diff_B = real_B - fake_B
+        return OrderedDict([('real_A', real_A), ('fake_B', fake_B), ('real_B', real_B), ('diff_B', diff_B)])
 
     def save(self, label):
         self.save_network(self.netG, 'G', label, self.gpu_ids)
